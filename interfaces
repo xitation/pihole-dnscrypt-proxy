@@ -1,0 +1,26 @@
+# make sure all config related to eth0 deleted ##
+auto br0
+iface br0 inet static
+        address 10.20.30.253
+        broadcast 172.16.69.255
+        netmask 255.255.255.0
+        dns-nameserver 172.16.69.254
+        dns-search lair.xitation.com
+        up ip route add default via 10.20.30.254 dev $IFACE
+        down ip route del default via 10.20.30.254 dev $IFACE
+        pre-up brctl addbr br0
+        bridge_ports eth0
+        bridge_stp off
+        bridge_waitport 0
+        bridge_fd 0
+
+iface br0 inet6 static
+        address 2000:3000:4000:1000::1
+        netmask 64
+        gateway 2000:3000:4000:1000::FFFF
+        # Add additional IPv6 addresses when $IFACE goes up like your link local one that was on eth* interface
+        up ip -6 addr add fec0:0:0:ffff::1/64 dev $IFACE
+        up ip -6 addr add 2000:3000:4000:1000::253/64 dev $IFACE
+        # Remove them when $IFACE goes down
+        down ip -6 addr del fec0:0:0:ffff::1/64 dev $IFACE
+        down ip -6 addr del 2000:3000:4000:1000::253/64 dev $IFACE
