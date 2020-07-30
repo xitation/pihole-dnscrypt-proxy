@@ -1,0 +1,39 @@
+$ docker network inspect lan
+[
+    {
+        "Name": "lan",
+        "Id": "***",
+        "Created": "***",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv6": true,
+        "IPAM": {
+            "Driver": "default",
+            "Options": {},
+            "Config": [
+                {
+                    "Subnet": "10.20.30.1/24",
+                    "Gateway": "10.20.30.254"
+                },
+                {
+                    "Subnet": "2000:3000:4000:1000:1::0/64",
+                    "Gateway": "2000:3000:4000:1000:1::FFFF",
+                    "AuxiliaryAddresses": {
+                        "AnotherHost01": "2000:3000:4000:1000:1::1"
+                    }
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Options": {
+            "com.docker.network.bridge.name": "br0"
+        },
+        "Labels": {}
+    }
+]
